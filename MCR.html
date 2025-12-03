@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MCR-Exercise</title>
+<style>
+    body { font-family: sans-serif; padding: 20px; background-color: #f4f4f4; }
+    form { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); max-width: 600px; margin: auto; }
+    input { padding: 5px; border: 1px solid #ccc; border-radius: 4px; }
+    button { background-color: #000; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-top: 15px; }
+    button:hover { background-color: #333; }
+    h1 { text-align: center; }
+    .verse { margin-bottom: 20px; line-height: 1.8; }
+</style>
+<script>
+function checkAnswers() {
+  // Answers corresponding to the lyrics gaps
+  var answers = [
+    "young",    // 1
+    "father",   // 2
+    "band",     // 3
+    "grow",     // 4
+    "broken",   // 5
+    "damned",   // 6
+    "defeat",   // 7
+    "phantom",  // 8
+    "gone",     // 9
+    "memory"    // 10
+  ];
+  
+  var score = 0;
+  var feedback = "<h2>Results:</h2>";
+
+  for (var i = 1; i <= 10; i++) {
+    var userAnswer = document.getElementById("q" + i).value.trim();
+    var correctAnswer = answers[i - 1];
+    
+    // Case-insensitive check
+    if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+      score++;
+      feedback += "<p style='color:green'>Question " + i + ": Correct!</p>";
+    } else {
+      feedback += "<p style='color:red'>Question " + i + ": Incorrect. The correct answer is <strong>'" + correctAnswer + "'</strong>.</p>";
+    }
+  }
+
+  feedback += "<h3>Score: " + score + "/10</h3>";
+  
+  // Fun feedback based on score
+  if (score === 10) {
+      feedback += "<p><em>We'll carry on! Perfect score!</em></p>";
+  } else if (score > 6) {
+      feedback += "<p><em>Good job, soldier of the Black Parade.</em></p>";
+  } else {
+      feedback += "<p><em>Listen to the song again and retry!</em></p>";
+  }
+
+  document.getElementById("feedback").innerHTML = feedback;
+}
+</script>
+</head>
+<body>
+
+<h1>Fill in the Blanks</h1>
+
+<form>
+  <div class="verse">
+      "When I was a <input type="text" id="q1" placeholder="adj"> boy,<br>
+      My <input type="text" id="q2" placeholder="noun"> took me into the city<br>
+      To see a marching <input type="text" id="q3" placeholder="noun">.<br>
+      He said, 'Son, when you <input type="text" id="q4" placeholder="verb"> up<br>
+      would you be the savior of the <input type="text" id="q5" placeholder="adj">,<br>
+      the beaten and the <input type="text" id="q6" placeholder="adj">?'"
+  </div>
+
+  <hr>
+
+  <div class="verse">
+      "He said, 'Will you <input type="text" id="q7" placeholder="verb"> them?<br>
+      Your demons, and all the non-believers<br>
+      the plans that they have made?'"<br>
+      <br>
+      "Because one day, I'll leave you a <input type="text" id="q8" placeholder="noun"><br>
+      to lead you in the summer<br>
+      to join the black parade."
+  </div>
+
+  <hr>
+
+  <div class="verse">
+      "And though you're dead and <input type="text" id="q9" placeholder="adj">, believe me<br>
+      Your <input type="text" id="q10" placeholder="noun">will carry on."
+  </div>
+
+  <button type="button" onclick="checkAnswers()">Check Answers</button>
+  
+  <div id="feedback"></div>
+</form>
+
+</body>
+</html>
