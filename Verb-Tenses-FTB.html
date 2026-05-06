@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fill the blanks:</title>
+<style>
+  body { font-family: sans-serif; line-height: 1.6; padding: 20px; background-color: #f4f4f9; }
+  .exercise-container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+  input { padding: 5px; border: 1px solid #ccc; border-radius: 4px; }
+  .correct { background-color: #d4edda; border-color: #28a745; }
+  .incorrect { background-color: #f8d7da; border-color: #dc3545; }
+  .feedback-msg { font-weight: bold; margin-top: 20px; }
+  .correction-hint { color: #dc3545; font-size: 0.9em; margin-left: 10px; }
+</style>
+<script>
+function checkAnswers() {
+  const answers = {
+    q1: "had already learned",
+    q2: "has written",
+    q3: "released",
+    q4: "will have achieved",
+    q5: "had worked",
+    q6: "has",
+    q7: "been debugging",
+    q8: "was created"
+  };
+  
+  let score = 0;
+  let total = Object.keys(answers).length;
+
+  for (let id in answers) {
+    let input = document.getElementById(id);
+    let userAnswer = input.value.trim().toLowerCase();
+    let correctAnswer = answers[id].toLowerCase();
+    
+    let existingHint = input.parentNode.querySelector('.correction-hint');
+    if (existingHint) existingHint.remove();
+
+    if (userAnswer === correctAnswer) {
+      score++;
+      input.className = "correct";
+    } else {
+      input.className = "incorrect";
+      let hint = document.createElement("span");
+      hint.className = "correction-hint";
+      hint.innerHTML = `(Correct: ${answers[id]})`;
+      input.parentNode.appendChild(hint);
+    }
+  }
+
+  document.getElementById("score-summary").innerHTML = `<h2>Score: ${score} / ${total}</h2>`;
+}
+</script>
+</head>
+<body>
+
+<div class="exercise-container">
+  <h1>Fill in the blanks:</h1>
+  <p>Completá las oraciones con la forma correcta del verbo entre paréntesis (Past Simple, Present Perfect, Past Perfect, Future Perfect o Present Perfect Continuous).</p>
+
+  <form id="quiz-form">
+    <p>1. By the time I graduated from high school, I <input type="text" id="q1"> (already / learn) how to use a computer.</p>
+    
+    <p>2. Michael <input type="text" id="q2"> (write) five emails so far today.</p>
+    
+    <p>3. At AT&T in the 1980s, Bjarne Stroustrup <input type="text" id="q3"> (release) the first version of C++.</p>
+    
+    <p>4. By the end of this year, I <input type="text" id="q4"> (achieve) my new years' resolution.</p>
+    
+    <p>5. I <input type="text" id="q5"> (work) in Spain before I relocated to Italy.</p>
+    
+    <p>6. The IT team <input type="text" id="q6"> <input type="text" id="q7"> (debug) the server all afternoon.</p>
+    
+    <p>7. The National Workers' University <input type="text" id="q8"> (create) in 1948 by Law 13,329.</p>
+
+    <button type="button" onclick="checkAnswers()">Corregir</button>
+  </form>
+
+  <div id="score-summary" class="feedback-msg"></div>
+</div>
+
+</body>
+</html>

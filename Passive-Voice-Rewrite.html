@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Passive Voice</title>
+<style>
+  body { font-family: sans-serif; padding: 20px; line-height: 1.6; background-color: #f4f4f9; }
+  .transformation-container { background: white; border: 1px solid #ddd; padding: 30px; border-radius: 8px; max-width: 800px; margin: auto; shadow: 0 2px 4px rgba(0,0,0,0.1); }
+  .q-row { margin-bottom: 25px; padding-bottom: 10px; border-bottom: 1px solid #eee; }
+  input[type="text"] { width: 100%; padding: 10px; margin-top: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+  .check-btn { background: #007bff; color: white; border: none; padding: 12px 20px; cursor: pointer; border-radius: 4px; font-size: 1em; width: 100%; transition: 0.3s; }
+  .check-btn:hover { background: #0056b3; }
+  .feedback-area { margin-top: 10px; font-size: 0.95em; display: none; padding: 10px; border-radius: 4px; }
+  .correct-input { border-color: #28a745 !important; background-color: #d4edda; }
+  .incorrect-input { border-color: #dc3545 !important; background-color: #f8d7da; }
+  .solution-text { color: #555; font-style: italic; margin-top: 5px; display: block; }
+</style>
+<script>
+  function checkPassive() {
+    const answers = {
+      p1: "a path for graduates is provided by the university",
+      p2: "a new legal framework was granted by law 14,855",
+      p3: "the software is being tested by the technicians",
+      p4: "the first computers were used for complex calculations",
+      p5: "the email has been sent by the employee",
+      p6: "stronger passwords should be used to prevent hacking",
+      p7: "ai will have been integrated by 2035"
+    };
+
+    let score = 0;
+    const keys = Object.keys(answers);
+
+    keys.forEach(id => {
+      const input = document.getElementById(id);
+      const feedback = document.getElementById("fb-" + id);
+      const userVal = input.value.trim().toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g,"");
+      const correctVal = answers[id].toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g,"");
+
+      feedback.style.display = "block";
+      
+      if (userVal === correctVal) {
+        score++;
+        input.className = "correct-input";
+        feedback.innerHTML = "✓ Correct";
+        feedback.style.color = "#28a745";
+      } else {
+        input.className = "incorrect-input";
+        feedback.innerHTML = "✗ Incorrect. Correct: " + answers[id];
+        feedback.style.color = "#dc3545";
+      }
+    });
+
+    document.getElementById("final-result").innerHTML = "<h2>Score: " + score + " / " + keys.length + "</h2>";
+  }
+</script>
+</head>
+<body>
+
+<div class="transformation-container">
+  <h1>Passive Voice</h1>
+  <p>Reescribí las oraciones en voz pasiva.</p>
+
+  <div class="q-row">
+    <p>1. The university provides a path for graduates.</p>
+    <input type="text" id="p1" placeholder="Type answer here...">
+    <div id="fb-p1" class="feedback-area"></div>
+  </div>
+
+  <div class="q-row">
+    <p>2. Law 14,855 granted a new legal framework.</p>
+    <input type="text" id="p2" placeholder="Type answer here...">
+    <div id="fb-p2" class="feedback-area"></div>
+  </div>
+
+  <div class="q-row">
+    <p>3. The technicians are testing the software.</p>
+    <input type="text" id="p3" placeholder="Type answer here...">
+    <div id="fb-p3" class="feedback-area"></div>
+  </div>
+
+  <div class="q-row">
+    <p>4. They used the first computers for complex calculations.</p>
+    <input type="text" id="p4" placeholder="Type answer here...">
+    <div id="fb-p4" class="feedback-area"></div>
+  </div>
+
+  <div class="q-row">
+    <p>5. The employee has sent the email. </p>
+    <input type="text" id="p5" placeholder="Type answer here...">
+    <div id="fb-p5" class="feedback-area"></div>
+  </div>
+
+  <div class="q-row">
+    <p>6. You should use stronger passwords to prevent hacking.</p>
+    <input type="text" id="p6" placeholder="Type answer here...">
+    <div id="fb-p6" class="feedback-area"></div>
+  </div>
+
+  <div class="q-row">
+    <p>7. Developers will have integrated AI by 2035.</p>
+    <input type="text" id="p7" placeholder="Type answer here...">
+    <div id="fb-p7" class="feedback-area"></div>
+  </div>
+
+  <button class="check-btn" onclick="checkPassive()">Corregir</button>
+  <div id="final-result" style="text-align:center; margin-top:20px;"></div>
+</div>
+
+</body>
+</html>

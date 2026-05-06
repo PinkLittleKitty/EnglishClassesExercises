@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multiple Choice:</title>
+<style>
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background-color: #f0f2f5; }
+  .quiz-container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+  .question-block { margin-bottom: 25px; padding: 15px; border-radius: 8px; border-left: 5px solid #007bff; background-color: #fafafa; }
+  .option-label { display: block; margin: 8px 0; cursor: pointer; padding: 5px; border-radius: 4px; transition: 0.2s; }
+  .option-label:hover { background-color: #e9ecef; }
+  .status-msg { font-weight: bold; margin-top: 10px; display: none; }
+  .correct-msg { color: #28a745; }
+  .incorrect-msg { color: #dc3545; }
+  .score-display { font-size: 1.5em; font-weight: bold; text-align: center; margin-top: 30px; color: #333; }
+  button { display: block; width: 100%; padding: 15px; background-color: #007bff; color: white; border: none; border-radius: 8px; font-size: 1.1em; cursor: pointer; }
+  button:hover { background-color: #0056b3; }
+</style>
+</head>
+<body>
+
+<div class="quiz-container">
+  <h1>Quiz: Modal Verbs</h1>
+  <p>Select the correct modal verb based on the function (obligation, advice, ability, etc.)</p>
+
+  <form id="modalQuiz">
+    <div class="question-block">
+      <p>1. You _____ share your passwords with anyone to keep the network secure.</p>
+      <label class="option-label"><input type="radio" name="q1" value="shouldn't"> shouldn't</label>
+      <label class="option-label"><input type="radio" name="q1" value="must"> must</label>
+      <label class="option-label"><input type="radio" name="q1" value="can"> can</label>
+      <div id="status-q1" class="status-msg"></div>
+    </div>
+
+    <div class="question-block">
+      <p>2. Staff _____ eat or put drinks near the delicate hardware.</p>
+      <label class="option-label"><input type="radio" name="q2" value="don't have to"> don't have to</label>
+      <label class="option-label"><input type="radio" name="q2" value="mustn't"> mustn't</label>
+      <label class="option-label"><input type="radio" name="q2" value="might"> might</label>
+      <div id="status-q2" class="status-msg"></div>
+    </div>
+
+    <div class="question-block">
+      <p>3. If you don't use a good debugger, your program _____ have hidden bugs.</p>
+      <label class="option-label"><input type="radio" name="q3" value="might"> might</label>
+      <label class="option-label"><input type="radio" name="q3" value="has to"> has to</label>
+      <label class="option-label"><input type="radio" name="q3" value="should"> should</label>
+      <div id="status-q3" class="status-msg"></div>
+    </div>
+
+    <div class="question-block">
+      <p>4. New passwords _____ be alphanumeric and at least 8 characters long.</p>
+      <label class="option-label"><input type="radio" name="q4" value="can"> can</label>
+      <label class="option-label"><input type="radio" name="q4" value="have to"> have to</label>
+      <label class="option-label"><input type="radio" name="q4" value="may"> may</label>
+      <div id="status-q4" class="status-msg"></div>
+    </div>
+
+    <div class="question-block">
+      <p>5. Rudy and Mike clean the office, so you _____ spend time cleaning your desk.</p>
+      <label class="option-label"><input type="radio" name="q5" value="mustn't"> mustn't</label>
+      <label class="option-label"><input type="radio" name="q5" value="don't have to"> don't have to</label>
+      <label class="option-label"><input type="radio" name="q5" value="shouldn't"> shouldn't</label>
+      <div id="status-q5" class="status-msg"></div>
+    </div>
+
+    <button type="button" onclick="checkQuiz()">Corregir</button>
+  </form>
+
+  <div id="finalScore" class="score-display"></div>
+</div>
+
+<script>
+function checkQuiz() {
+  const correctAnswers = {
+    q1: "shouldn't",
+    q2: "mustn't",
+    q3: "might",
+    q4: "have to",
+    q5: "don't have to"
+  };
+
+  let score = 0;
+  const total = Object.keys(correctAnswers).length;
+
+  for (let i = 1; i <= total; i++) {
+    const qName = "q" + i;
+    const statusDiv = document.getElementById("status-" + qName);
+    const selected = document.querySelector(`input[name="${qName}"]:checked`);
+    
+    statusDiv.style.display = "block";
+
+    if (selected && selected.value === correctAnswers[qName]) {
+      score++;
+      statusDiv.innerHTML = "✓ Correct!";
+      statusDiv.className = "status-msg correct-msg";
+    } else {
+      statusDiv.innerHTML = "✗ Incorrect. The correct answer is: " + correctAnswers[qName];
+      statusDiv.className = "status-msg incorrect-msg";
+    }
+  }
+
+  document.getElementById("finalScore").innerHTML = "Final Score: " + score + " / " + total;
+}
+</script>
+
+</body>
+</html>
