@@ -5,107 +5,190 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Passive Voice</title>
 <style>
-  body { font-family: sans-serif; padding: 20px; line-height: 1.6; background-color: #f4f4f9; }
-  .transformation-container { background: white; border: 1px solid #ddd; padding: 30px; border-radius: 8px; max-width: 800px; margin: auto; shadow: 0 2px 4px rgba(0,0,0,0.1); }
-  .q-row { margin-bottom: 25px; padding-bottom: 10px; border-bottom: 1px solid #eee; }
-  input[type="text"] { width: 100%; padding: 10px; margin-top: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-  .check-btn { background: #007bff; color: white; border: none; padding: 12px 20px; cursor: pointer; border-radius: 4px; font-size: 1em; width: 100%; transition: 0.3s; }
-  .check-btn:hover { background: #0056b3; }
-  .feedback-area { margin-top: 10px; font-size: 0.95em; display: none; padding: 10px; border-radius: 4px; }
-  .correct-input { border-color: #28a745 !important; background-color: #d4edda; }
-  .incorrect-input { border-color: #dc3545 !important; background-color: #f8d7da; }
-  .solution-text { color: #555; font-style: italic; margin-top: 5px; display: block; }
+  body { 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+    line-height: 1.6; 
+    padding: 20px; 
+    background-color: #f4f4f9; 
+    color: #333; 
+  }
+  .exercise-container { 
+    background: white; 
+    padding: 25px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
+    max-width: 900px; 
+    margin: 0 auto; 
+  }
+  h1 { color: #2d3748; margin-top: 0; text-align: center; }
+  p { margin-bottom: 15px; }
+  input[type="text"] { 
+    padding: 6px 10px; 
+    border: 1px solid #cbd5e0; 
+    border-radius: 6px; 
+    transition: all 0.2s; 
+    font-size: 1rem; 
+    margin: 2px 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  input[type="text"]:focus { 
+    outline: none; 
+    border-color: #3182ce; 
+    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1); 
+  }
+  button { 
+    background-color: #3182ce; 
+    color: white; 
+    border: none; 
+    padding: 12px 24px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-size: 1rem; 
+    font-weight: 600; 
+    transition: background-color 0.2s, transform 0.1s; 
+    margin-top: 25px;
+    display: block;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  button:hover { background-color: #2b6cb0; transform: translateY(-1px); }
+  button:active { transform: translateY(0); }
+  
+  .correct { background-color: #f0fff4 !important; border-color: #38a169 !important; color: #22543d !important; }
+  .incorrect { background-color: #fff5f5 !important; border-color: #e53e3e !important; color: #742a2a !important; }
+  
+  .feedback-msg { 
+    font-weight: bold; 
+    margin-top: 25px; 
+    border-top: 2px solid #e2e8f0; 
+    padding-top: 20px; 
+    text-align: center;
+  }
+  .correction-hint { 
+    color: #e53e3e; 
+    font-size: 0.9em; 
+    margin-left: 8px; 
+    font-weight: 600; 
+    display: block;
+    margin-top: 5px;
+    animation: fadeIn 0.3s ease;
+  }
+  .q-row {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #edf2f7;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateX(5px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body { background-color: #1a202c; color: #e2e8f0; }
+    .exercise-container { background-color: #2d3748; color: #e2e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+    h1 { color: #f7fafc; }
+    input[type="text"] { background-color: #4a5568; color: white; border-color: #718096; }
+    input[type="text"]::placeholder { color: #a0aec0; }
+    .correct { background-color: #22543d !important; border-color: #2f855a !important; color: #c6f6d5 !important; }
+    .incorrect { background-color: #742a2a !important; border-color: #c53030 !important; color: #fed7d7 !important; }
+    .correction-hint { color: #feb2b2; }
+    .feedback-msg { border-color: #4a5568; }
+    .q-row { border-color: #4a5568; }
+  }
 </style>
 <script>
-  function checkPassive() {
-    const answers = {
-      p1: "a path for graduates is provided by the university",
-      p2: "a new legal framework was granted by law 14,855",
-      p3: "the software is being tested by the technicians",
-      p4: "the first computers were used for complex calculations",
-      p5: "the email has been sent by the employee",
-      p6: "stronger passwords should be used to prevent hacking",
-      p7: "ai will have been integrated by 2035"
-    };
+function checkAnswers() {
+  const answers = {
+    p1: "a path for graduates is provided by the university",
+    p2: "a new legal framework was granted by law 14,855",
+    p3: "the software is being tested by the technicians",
+    p4: "the first computers were used for complex calculations",
+    p5: "the email has been sent by the employee",
+    p6: "stronger passwords should be used to prevent hacking",
+    p7: "ai will have been integrated by 2035"
+  };
+  
+  let score = 0;
+  const total = Object.keys(answers).length;
 
-    let score = 0;
-    const keys = Object.keys(answers);
+  for (let id in answers) {
+    const input = document.getElementById(id);
+    if (!input) continue;
 
-    keys.forEach(id => {
-      const input = document.getElementById(id);
-      const feedback = document.getElementById("fb-" + id);
-      const userVal = input.value.trim().toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g,"");
-      const correctVal = answers[id].toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g,"");
+    const userAnswer = input.value.trim().toLowerCase();
+    const correctAnswer = answers[id].toLowerCase();
+    
+    let existingHint = input.parentNode.querySelector('.correction-hint');
+    if (existingHint) existingHint.remove();
 
-      feedback.style.display = "block";
-      
-      if (userVal === correctVal) {
-        score++;
-        input.className = "correct-input";
-        feedback.innerHTML = "✓ Correct";
-        feedback.style.color = "#28a745";
-      } else {
-        input.className = "incorrect-input";
-        feedback.innerHTML = "✗ Incorrect. Correct: " + answers[id];
-        feedback.style.color = "#dc3545";
-      }
-    });
-
-    document.getElementById("final-result").innerHTML = "<h2>Score: " + score + " / " + keys.length + "</h2>";
+    if (userAnswer === correctAnswer) {
+      score++;
+      input.className = "correct";
+    } else {
+      input.className = "incorrect";
+      const hint = document.createElement("span");
+      hint.className = "correction-hint";
+      hint.innerHTML = `(Correct: ${answers[id]})`;
+      input.parentNode.appendChild(hint);
+    }
   }
+
+  const summary = document.getElementById("score-summary");
+  if (summary) {
+    summary.className = "feedback-msg";
+    summary.innerHTML = `<h2>Final Score: ${score} / ${total}</h2>`;
+  }
+}
 </script>
 </head>
 <body>
-
-<div class="transformation-container">
+<div class="exercise-container">
   <h1>Passive Voice</h1>
   <p>Reescribí las oraciones en voz pasiva.</p>
 
-  <div class="q-row">
-    <p>1. The university provides a path for graduates.</p>
-    <input type="text" id="p1" placeholder="Type answer here...">
-    <div id="fb-p1" class="feedback-area"></div>
-  </div>
+  <form id="quiz-form">
+    <div class="q-row">
+      <p>1. The university provides a path for graduates.</p>
+      <input type="text" id="p1" placeholder="Type answer here...">
+    </div>
 
-  <div class="q-row">
-    <p>2. Law 14,855 granted a new legal framework.</p>
-    <input type="text" id="p2" placeholder="Type answer here...">
-    <div id="fb-p2" class="feedback-area"></div>
-  </div>
+    <div class="q-row">
+      <p>2. Law 14,855 granted a new legal framework.</p>
+      <input type="text" id="p2" placeholder="Type answer here...">
+    </div>
 
-  <div class="q-row">
-    <p>3. The technicians are testing the software.</p>
-    <input type="text" id="p3" placeholder="Type answer here...">
-    <div id="fb-p3" class="feedback-area"></div>
-  </div>
+    <div class="q-row">
+      <p>3. The technicians are testing the software.</p>
+      <input type="text" id="p3" placeholder="Type answer here...">
+    </div>
 
-  <div class="q-row">
-    <p>4. They used the first computers for complex calculations.</p>
-    <input type="text" id="p4" placeholder="Type answer here...">
-    <div id="fb-p4" class="feedback-area"></div>
-  </div>
+    <div class="q-row">
+      <p>4. They used the first computers for complex calculations.</p>
+      <input type="text" id="p4" placeholder="Type answer here...">
+    </div>
 
-  <div class="q-row">
-    <p>5. The employee has sent the email. </p>
-    <input type="text" id="p5" placeholder="Type answer here...">
-    <div id="fb-p5" class="feedback-area"></div>
-  </div>
+    <div class="q-row">
+      <p>5. The employee has sent the email. </p>
+      <input type="text" id="p5" placeholder="Type answer here...">
+    </div>
 
-  <div class="q-row">
-    <p>6. You should use stronger passwords to prevent hacking.</p>
-    <input type="text" id="p6" placeholder="Type answer here...">
-    <div id="fb-p6" class="feedback-area"></div>
-  </div>
+    <div class="q-row">
+      <p>6. You should use stronger passwords to prevent hacking.</p>
+      <input type="text" id="p6" placeholder="Type answer here...">
+    </div>
 
-  <div class="q-row">
-    <p>7. Developers will have integrated AI by 2035.</p>
-    <input type="text" id="p7" placeholder="Type answer here...">
-    <div id="fb-p7" class="feedback-area"></div>
-  </div>
+    <div class="q-row">
+      <p>7. Developers will have integrated AI by 2035.</p>
+      <input type="text" id="p7" placeholder="Type answer here...">
+    </div>
 
-  <button class="check-btn" onclick="checkPassive()">Corregir</button>
-  <div id="final-result" style="text-align:center; margin-top:20px;"></div>
+    <button type="button" onclick="checkAnswers()">Corregir</button>
+  </form>
+
+  <div id="score-summary"></div>
 </div>
-
 </body>
 </html>

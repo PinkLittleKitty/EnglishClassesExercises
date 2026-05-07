@@ -1,109 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Multiple Choice:</title>
-<style>
-  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background-color: #f0f2f5; }
-  .quiz-container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-  .question-block { margin-bottom: 25px; padding: 15px; border-radius: 8px; border-left: 5px solid #007bff; background-color: #fafafa; }
-  .option-label { display: block; margin: 8px 0; cursor: pointer; padding: 5px; border-radius: 4px; transition: 0.2s; }
-  .option-label:hover { background-color: #e9ecef; }
-  .status-msg { font-weight: bold; margin-top: 10px; display: none; }
-  .correct-msg { color: #28a745; }
-  .incorrect-msg { color: #dc3545; }
-  .score-display { font-size: 1.5em; font-weight: bold; text-align: center; margin-top: 30px; color: #333; }
-  button { display: block; width: 100%; padding: 15px; background-color: #007bff; color: white; border: none; border-radius: 8px; font-size: 1.1em; cursor: pointer; }
-  button:hover { background-color: #0056b3; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiple Choice:</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      padding: 20px;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+
+    .exercise-container {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: #2d3748;
+      margin-top: 0;
+      text-align: center;
+    }
+
+    p {
+      margin-bottom: 15px;
+    }
+
+    .question-block {
+      margin-bottom: 25px;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #f8fafc;
+      border-left: 5px solid #3182ce;
+    }
+
+    .option-label {
+      display: block;
+      margin: 10px 0;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 6px;
+      transition: background-color 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .option-label:hover {
+      background-color: #edf2f7;
+    }
+
+    .option-label input {
+      margin-right: 10px;
+    }
+
+    button {
+      background-color: #3182ce;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background-color 0.2s, transform 0.1s;
+      margin-top: 25px;
+      display: block;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    button:hover {
+      background-color: #2b6cb0;
+      transform: translateY(-1px);
+    }
+
+    .status-msg {
+      font-weight: bold;
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 6px;
+      display: none;
+    }
+
+    .correct-msg {
+      background-color: #f0fff4;
+      color: #22543d;
+      border: 1px solid #c6f6d5;
+    }
+
+    .incorrect-msg {
+      background-color: #fff5f5;
+      color: #742a2a;
+      border: 1px solid #fed7d7;
+    }
+
+    .feedback-msg {
+      font-weight: bold;
+      margin-top: 30px;
+      border-top: 2px solid #e2e8f0;
+      padding-top: 20px;
+      text-align: center;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #1a202c;
+        color: #e2e8f0;
+      }
+
+      .exercise-container {
+        background-color: #2d3748;
+        color: #e2e8f0;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      }
+
+      h1 {
+        color: #f7fafc;
+      }
+
+      .question-block {
+        background-color: #2d3748;
+        border-color: #63b3ed;
+        border: 1px solid #4a5568;
+        border-left: 5px solid #63b3ed;
+      }
+
+      .option-label:hover {
+        background-color: #4a5568;
+      }
+
+      .correct-msg {
+        background-color: #22543d;
+        color: #c6f6d5;
+        border-color: #2f855a;
+      }
+
+      .incorrect-msg {
+        background-color: #742a2a;
+        color: #fed7d7;
+        border-color: #c53030;
+      }
+
+      .feedback-msg {
+        border-color: #4a5568;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="quiz-container">
-  <h1>Quiz: Modal Verbs</h1>
-  <p>Select the correct modal verb based on the function (obligation, advice, ability, etc.)</p>
+  <div class="exercise-container">
+    <h1>Quiz: Modal Verbs</h1>
+    <p>Select the correct modal verb based on the function (obligation, advice, ability, etc.)</p>
 
-  <form id="modalQuiz">
-    <div class="question-block">
-      <p>1. You _____ share your passwords with anyone to keep the network secure.</p>
-      <label class="option-label"><input type="radio" name="q1" value="shouldn't"> shouldn't</label>
-      <label class="option-label"><input type="radio" name="q1" value="must"> must</label>
-      <label class="option-label"><input type="radio" name="q1" value="can"> can</label>
-      <div id="status-q1" class="status-msg"></div>
-    </div>
+    <form id="modalQuiz">
+      <div class="question-block">
+        <p>1. You _____ share your passwords with anyone to keep the network secure.</p>
+        <label class="option-label"><input type="radio" name="q1" value="shouldn't"> shouldn't</label>
+        <label class="option-label"><input type="radio" name="q1" value="must"> must</label>
+        <label class="option-label"><input type="radio" name="q1" value="can"> can</label>
+        <div id="status-q1" class="status-msg"></div>
+      </div>
 
-    <div class="question-block">
-      <p>2. Staff _____ eat or put drinks near the delicate hardware.</p>
-      <label class="option-label"><input type="radio" name="q2" value="don't have to"> don't have to</label>
-      <label class="option-label"><input type="radio" name="q2" value="mustn't"> mustn't</label>
-      <label class="option-label"><input type="radio" name="q2" value="might"> might</label>
-      <div id="status-q2" class="status-msg"></div>
-    </div>
+      <div class="question-block">
+        <p>2. Staff _____ eat or put drinks near the delicate hardware.</p>
+        <label class="option-label"><input type="radio" name="q2" value="don't have to"> don't have to</label>
+        <label class="option-label"><input type="radio" name="q2" value="mustn't"> mustn't</label>
+        <label class="option-label"><input type="radio" name="q2" value="might"> might</label>
+        <div id="status-q2" class="status-msg"></div>
+      </div>
 
-    <div class="question-block">
-      <p>3. If you don't use a good debugger, your program _____ have hidden bugs.</p>
-      <label class="option-label"><input type="radio" name="q3" value="might"> might</label>
-      <label class="option-label"><input type="radio" name="q3" value="has to"> has to</label>
-      <label class="option-label"><input type="radio" name="q3" value="should"> should</label>
-      <div id="status-q3" class="status-msg"></div>
-    </div>
+      <div class="question-block">
+        <p>3. If you don't use a good debugger, your program _____ have hidden bugs.</p>
+        <label class="option-label"><input type="radio" name="q3" value="might"> might</label>
+        <label class="option-label"><input type="radio" name="q3" value="has to"> has to</label>
+        <label class="option-label"><input type="radio" name="q3" value="should"> should</label>
+        <div id="status-q3" class="status-msg"></div>
+      </div>
 
-    <div class="question-block">
-      <p>4. New passwords _____ be alphanumeric and at least 8 characters long.</p>
-      <label class="option-label"><input type="radio" name="q4" value="can"> can</label>
-      <label class="option-label"><input type="radio" name="q4" value="have to"> have to</label>
-      <label class="option-label"><input type="radio" name="q4" value="may"> may</label>
-      <div id="status-q4" class="status-msg"></div>
-    </div>
+      <div class="question-block">
+        <p>4. New passwords _____ be alphanumeric and at least 8 characters long.</p>
+        <label class="option-label"><input type="radio" name="q4" value="can"> can</label>
+        <label class="option-label"><input type="radio" name="q4" value="have to"> have to</label>
+        <label class="option-label"><input type="radio" name="q4" value="may"> may</label>
+        <div id="status-q4" class="status-msg"></div>
+      </div>
 
-    <div class="question-block">
-      <p>5. Rudy and Mike clean the office, so you _____ spend time cleaning your desk.</p>
-      <label class="option-label"><input type="radio" name="q5" value="mustn't"> mustn't</label>
-      <label class="option-label"><input type="radio" name="q5" value="don't have to"> don't have to</label>
-      <label class="option-label"><input type="radio" name="q5" value="shouldn't"> shouldn't</label>
-      <div id="status-q5" class="status-msg"></div>
-    </div>
+      <div class="question-block">
+        <p>5. Rudy and Mike clean the office, so you _____ spend time cleaning your desk.</p>
+        <label class="option-label"><input type="radio" name="q5" value="mustn't"> mustn't</label>
+        <label class="option-label"><input type="radio" name="q5" value="don't have to"> don't have to</label>
+        <label class="option-label"><input type="radio" name="q5" value="shouldn't"> shouldn't</label>
+        <div id="status-q5" class="status-msg"></div>
+      </div>
 
-    <button type="button" onclick="checkQuiz()">Corregir</button>
-  </form>
+      <button type="button" onclick="checkQuiz()">Corregir</button>
+    </form>
 
-  <div id="finalScore" class="score-display"></div>
-</div>
+    <div id="finalScore" class="feedback-msg"></div>
+  </div>
 
-<script>
-function checkQuiz() {
-  const correctAnswers = {
-    q1: "shouldn't",
-    q2: "mustn't",
-    q3: "might",
-    q4: "have to",
-    q5: "don't have to"
-  };
+  <script>
+    function checkQuiz() {
+      const correctAnswers = {
+        q1: "shouldn't",
+        q2: "mustn't",
+        q3: "might",
+        q4: "have to",
+        q5: "don't have to"
+      };
 
-  let score = 0;
-  const total = Object.keys(correctAnswers).length;
+      let score = 0;
+      const total = Object.keys(correctAnswers).length;
 
-  for (let i = 1; i <= total; i++) {
-    const qName = "q" + i;
-    const statusDiv = document.getElementById("status-" + qName);
-    const selected = document.querySelector(`input[name="${qName}"]:checked`);
-    
-    statusDiv.style.display = "block";
+      for (let i = 1; i <= total; i++) {
+        const qName = "q" + i;
+        const statusDiv = document.getElementById("status-" + qName);
+        const selected = document.querySelector(`input[name="${qName}"]:checked`);
 
-    if (selected && selected.value === correctAnswers[qName]) {
-      score++;
-      statusDiv.innerHTML = "✓ Correct!";
-      statusDiv.className = "status-msg correct-msg";
-    } else {
-      statusDiv.innerHTML = "✗ Incorrect. The correct answer is: " + correctAnswers[qName];
-      statusDiv.className = "status-msg incorrect-msg";
+        statusDiv.style.display = "block";
+
+        if (selected && selected.value === correctAnswers[qName]) {
+          score++;
+          statusDiv.innerHTML = "✓ Correct!";
+          statusDiv.className = "status-msg correct-msg";
+        } else {
+          statusDiv.innerHTML = "✗ Incorrect. The correct answer is: " + correctAnswers[qName];
+          statusDiv.className = "status-msg incorrect-msg";
+        }
+      }
+
+      document.getElementById("finalScore").innerHTML = `<h2>Final Score: ${score} / ${total}</h2>`;
     }
-  }
-
-  document.getElementById("finalScore").innerHTML = "Final Score: " + score + " / " + total;
-}
-</script>
+  </script>
 
 </body>
+
 </html>
