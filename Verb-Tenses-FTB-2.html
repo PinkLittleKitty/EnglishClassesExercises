@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fill the blanks:</title>
+  <title>Fill the blanks: Verb Tenses (Part 2)</title>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -165,26 +165,26 @@
   <script>
     function checkAnswers() {
       const answers = {
-        q1: "had already learned",
-        q2: "has written",
-        q3: "released",
-        q4: "will have achieved",
-        q5: "had worked",
-        q6: "has",
-        q7: "been debugging",
-        q8: "was created",
-        q9: "will have worked",
-        q10: "had never seen",
-        q11: "were testing",
-        q12: "have switched",
-        q13: "had already exploited",
-        q14: "restarted",
-        q15: "have been trying",
-        q16: "was built",
-        q17: "will have transformed",
-        q18: "had not finished",
-        q19: "is blinking",
-        q20: "founded"
+        q1: "will have developed",
+        q2: "had been reading",
+        q3: "has learned",
+        q4: "was compiling",
+        q5: "had already finished",
+        q6: "updated",
+        q7: "will have been working",
+        q8: "have just finished",
+        q9: "had forgotten",
+        q10: "is expanding",
+        q11: "became",
+        q12: "have been waiting",
+        q13: "will have completed",
+        q14: "have not released",
+        q15: "increased",
+        q16: "had studied",
+        q17: "is being processed",
+        q18: "will have sent",
+        q19: "had lived",
+        q20: "has gone"
       };
 
       let score = 0;
@@ -196,7 +196,7 @@
         if (!input) continue;
 
         const userAnswer = input.value.trim().toLowerCase();
-        const correctAnswer = (answers[id]).toLowerCase();
+        const correctAnswer = answers[id].toLowerCase();
 
         let existingHint = input.parentNode.querySelector('.correction-hint');
         if (existingHint) existingHint.remove();
@@ -225,33 +225,30 @@
 <body>
 
   <div class="exercise-container">
-    <h1>Fill in the blanks: Verb Tenses</h1>
-    <p>Complete the sentences with the correct form of the verb in parentheses (Past Simple, Present Perfect, Past
-      Perfect, Future Perfect, etc.).</p>
+    <h1>Fill in the blanks: (Part 2)</h1>
+    <p>Complete the sentences with the correct form of the verb in parentheses.</p>
 
     <form id="quiz-form">
-      <p>1. By the time I graduated from high school, I <input type="text" id="q1"> (already / learn) how to use a
-        computer.</p>
-      <p>2. Michael <input type="text" id="q2"> (write) five emails so far today.</p>
-      <p>3. At AT&T in the 1980s, Bjarne Stroustrup <input type="text" id="q3"> (release) the first version of C++.</p>
-      <p>4. By the end of this year, I <input type="text" id="q4"> (achieve) my new years' resolution.</p>
-      <p>5. I <input type="text" id="q5"> (work) in Spain before I relocated to Italy.</p>
-      <p>6. The IT team <input type="text" id="q6"> <input type="text" id="q7"> (debug) the server all afternoon.</p>
-      <p>7. The National Workers' University <input type="text" id="q8"> (create) in 1948 by Law 13,329.</p>
-      <p>8. Next month, she <input type="text" id="q9"> (work) at this company for exactly ten years.</p>
-      <p>9. I <input type="text" id="q10"> (never / see) such a complex piece of assembly code before that project.</p>
-      <p>10. While the developers <input type="text" id="q11"> (test) the new feature, the power went out.</p>
-      <p>11. Recently, many companies <input type="text" id="q12"> (switch) to remote work to save costs.</p>
-      <p>12. By the time the patch was released, the hackers <input type="text" id="q13"> (already / exploit) the
-        vulnerability.</p>
-      <p>13. If you look at the logs, you'll see that the system <input type="text" id="q14"> (restart) three times
-        yesterday.</p>
-      <p>14. I <input type="text" id="q15"> (try) to fix this bug for three hours now!</p>
-      <p>15. The first programmable computer <input type="text" id="q16"> (build) by Konrad Zuse in 1941.</p>
-      <p>16. By 2030, AI <input type="text" id="q17"> (transform) the way we write software.</p>
-      <p>17. They <input type="text" id="q18"> (not / finish) the documentation when the client asked for a demo.</p>
-      <p>18. Look! The indicator light <input type="text" id="q19"> (blink). Something is wrong.</p>
-      <p>19. Steve Jobs and Steve Wozniak <input type="text" id="q20"> (found) Apple in a garage in 1976.</p>
+      <p>1. By next year, the team <input type="text" id="q1"> (develop) the new AI algorithm.</p>
+      <p>2. I <input type="text" id="q2"> (read) the documentation for hours before I finally understood the error.</p>
+      <p>3. Since he started his job, he <input type="text" id="q3"> (learn) three new programming languages.</p>
+      <p>4. While I <input type="text" id="q4"> (compile) the code, my laptop ran out of battery.</p>
+      <p>5. By the time we arrived at the conference, the keynote <input type="text" id="q5"> (already / finish).</p>
+      <p>6. The software <input type="text" id="q6"> (update) automatically last night.</p>
+      <p>7. They <input type="text" id="q7"> (work) on this project for six months by the end of June.</p>
+      <p>8. I <input type="text" id="q8"> (just / finish) refactoring the legacy module.</p>
+      <p>9. When I saw the error message, I realized I <input type="text" id="q9"> (forget) to close the bracket.</p>
+      <p>10. The company <input type="text" id="q10"> (expand) its operations to Europe next month.</p>
+      <p>11. In 1969, Neil Armstrong <input type="text" id="q11"> (become) the first person to walk on the moon.</p>
+      <p>12. I <input type="text" id="q12"> (wait) for the server to respond for ten minutes now.</p>
+      <p>13. By the end of the day, I <input type="text" id="q13"> (complete) all the tickets in my queue.</p>
+      <p>14. They <input type="text" id="q14"> (not / release) the update yet.</p>
+      <p>15. Last year, the budget <input type="text" id="q15"> (increase) by 15%.</p>
+      <p>16. If he <input type="text" id="q16"> (study) harder, he would have passed the certification.</p>
+      <p>17. The data <input type="text" id="q17"> (process) in the background while you wait.</p>
+      <p>18. By the time the meeting starts, I <input type="text" id="q18"> (send) the report.</p>
+      <p>19. We <input type="text" id="q19"> (live) in this city for five years before we moved.</p>
+      <p>20. Look! The server <input type="text" id="q20"> (go) down again.</p>
 
       <button type="button" onclick="checkAnswers()">Corregir</button>
     </form>
